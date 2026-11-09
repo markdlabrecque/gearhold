@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gearhold</title>
+  <link rel="icon" href="assets/icon.svg">
+  <style>
+    html, body { height: 100%; margin: 0; background: #070a10; overflow: hidden; }
+    body { display: grid; place-items: center; }
+    canvas { display: block; touch-action: none; user-select: none; -webkit-user-select: none; }
+  </style>
+</head>
+<body>
+  <canvas id="game" aria-label="Gearhold, a lane defense game"></canvas>
+  <script src="src/sim.js"></script>
+  <script src="src/render.js"></script>
+  <script src="src/audio.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>
