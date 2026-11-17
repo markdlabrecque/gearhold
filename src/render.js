@@ -20,7 +20,7 @@
   const TAU = Math.PI * 2;
   const INK = '#0c111b';
   const FONT = '"Trebuchet MS", "Segoe UI", system-ui, sans-serif';
-  const GOO = { drip: '#7be36b', zipper: '#ff73b0', shell: '#46c98f', bloat: '#a35ce6' };
+  const GOO = { drip: '#7be36b', zipper: '#ff73b0', shell: '#46c98f', bloat: '#a35ce6', dancer: '#53d9b1' };
 
   const layout = {
     sparks: { x: 14, y: 12, w: 172, h: 88 },
@@ -426,6 +426,58 @@
       line(ctx, [[-18, 7], [-6, 11]], INK, 3);
       line(ctx, [[10, 6], [-1, 10]], INK, 3);
       mouth(ctx, -4, 28, 6, o.chew, t);
+    },
+
+    dancer(ctx, t, o) {
+      const beat = t * 9;
+      ctx.translate(Math.sin(beat) * 3, -Math.abs(Math.sin(beat)) * 6);
+      ctx.rotate(Math.sin(beat) * 0.09);
+      squash(ctx, t * 1.6, 0.045);
+      goo(ctx, 29, 57, t, o.flash ? '#ffffff' : GOO.dancer);
+
+      // A bright woven poncho, with stripes clipped to its silhouette.
+      ctx.save();
+      poly(ctx, [[-18, 9], [18, 9], [35, 35], [0, 44], [-35, 35]]);
+      paint(ctx, '#e95b42', 3);
+      ctx.clip();
+      for (let i = 0; i < 5; i++) {
+        ctx.fillStyle = ['#ffd36d', '#267c75', '#fff0cc', '#267c75', '#ffd36d'][i];
+        ctx.fillRect(-38, 17 + i * 5, 76, 3);
+      }
+      ctx.restore();
+      for (let x = -26; x <= 26; x += 7) {
+        line(ctx, [[x, 38 - Math.abs(x) * 0.25], [x, 44 - Math.abs(x) * 0.25]], '#ffd36d', 2);
+      }
+      eye(ctx, -13, 1, 7, -2);
+      eye(ctx, 6, 1, 7, -2);
+      mouth(ctx, -3, 13, 7, o.chew, t);
+
+      // Wide straw sombrero with a raised crown and decorative band.
+      ctx.beginPath();
+      ctx.ellipse(0, -19, 44, 10, 0, 0, TAU);
+      paint(ctx, '#e8b75b', 3);
+      poly(ctx, [[-19, -21], [-12, -45], [-5, -51], [7, -50], [14, -43], [20, -21]]);
+      paint(ctx, '#f6d17e', 3);
+      line(ctx, [[-16, -27], [0, -24], [17, -27]], '#d84c44', 5);
+      for (let x = -32; x <= 32; x += 8) {
+        circle(ctx, x, -17 + Math.abs(x) * 0.04, 1.8);
+        ctx.fillStyle = '#267c75';
+        ctx.fill();
+      }
+
+      // Opposite-phase arm swings make both maracas visibly shake.
+      for (const side of [-1, 1]) {
+        ctx.save();
+        ctx.translate(side * 29, 18);
+        ctx.rotate(side * (0.45 + Math.sin(beat + side * 1.2) * 0.65));
+        line(ctx, [[0, 0], [side * 9, -7]], GOO.dancer, 7);
+        line(ctx, [[side * 9, -7], [side * 12, -23]], '#9a603e', 5);
+        ctx.beginPath();
+        ctx.ellipse(side * 12, -29, 8, 11, side * 0.2, 0, TAU);
+        paint(ctx, '#f6c34e', 2.5);
+        line(ctx, [[side * 12 - 6, -29], [side * 12 + 6, -29]], '#e95b42', 4);
+        ctx.restore();
+      }
     },
 
     shell(ctx, t, o) {

@@ -40,6 +40,7 @@
   const BLOBS = {
     drip: { hp: 100, speed: 0.22, bite: 20, reward: 5, coreDmg: 1, price: 1, from: 1 },
     zipper: { hp: 60, speed: 0.5, bite: 15, reward: 5, coreDmg: 1, price: 1.5, from: 3 },
+    dancer: { hp: 160, speed: 0.28, bite: 20, reward: 10, coreDmg: 1, price: 2, from: 3 },
     shell: { hp: 300, speed: 0.19, bite: 20, reward: 10, coreDmg: 1, price: 2.5, from: 4 },
     bloat: { hp: 650, speed: 0.13, bite: 45, reward: 20, coreDmg: 2, price: 6, from: 6, splits: 2 },
   };
