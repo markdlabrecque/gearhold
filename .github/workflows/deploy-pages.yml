@@ -1,0 +1,54 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Run unit tests
+        run: node --test
+      - uses: actions/configure-pages@v5
+      - name: Prepare versioned site
+        env:
+          DEPLOY_VERSION: v0.0.${{ github.run_number }}
+        run: |
+          mkdir _site
+          cp index.html _site/
+          cp -R src assets _site/
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          version = os.environ['DEPLOY_VERSION']
+          index = Path('_site/index.html')
+          html = index.read_text().replace('>v0.0.1</span>', f'>{version}</span>')
+          # Each deployment loads fresh scripts rather than stale browser caches.
+          for script in Path('_site/src').glob('*.js'):
+              html = html.replace(f'src="src/{script.name}"', f'src="src/{script.name}?v={version}"')
+          index.write_text(html)
+          PY
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

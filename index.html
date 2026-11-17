@@ -9,10 +9,12 @@
     html, body { height: 100%; margin: 0; background: #070a10; overflow: hidden; }
     body { display: grid; place-items: center; }
     canvas { display: block; touch-action: none; user-select: none; -webkit-user-select: none; }
+    #version { position: fixed; bottom: 5px; right: 8px; color: #9fb4cd; font: 11px system-ui, sans-serif; pointer-events: none; }
   </style>
 </head>
 <body>
   <canvas id="game" aria-label="Gearhold, a lane defense game"></canvas>
+  <span id="version" aria-label="Game version">v0.0.1</span>
   <script src="src/sim.js"></script>
   <script src="src/render.js"></script>
   <script src="src/audio.js"></script>

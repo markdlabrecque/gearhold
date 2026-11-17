@@ -40,6 +40,14 @@ Open `index.html` in a browser. No install, no build, no server.
 - `src/audio.js` - sound effects, made on the spot with Web Audio.
 - `src/main.js` - game loop, mouse, touch and keyboard.
 
+## Deployment version
+
+Pushes to `main` deploy through `.github/workflows/deploy-pages.yml`. The
+bottom-right version label uses the workflow run number: `v0.0.1`, `v0.0.2`,
+and so on. Re-running the same workflow run retains its version. Deployment
+artifacts contain versioned script URLs so browsers load the matching code.
+Opening the source locally displays the baseline `v0.0.1` label.
+
 ## Test
 
 ```
