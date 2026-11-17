@@ -350,7 +350,7 @@
   }
 
   // ---- blobs --------------------------------------------------------------
-  // Blobs are soft and glossy with round cartoon eyes, and they face left.
+  // Blobs are soft and glossy, with furious brows and animated yelling faces.
 
   function squash(ctx, t, amount) {
     const q = Math.sin(t * 5) * amount;
@@ -380,19 +380,27 @@
     circle(ctx, x + look, y + 1, r * 0.45);
     ctx.fillStyle = INK;
     ctx.fill();
+    // Brows plunge toward the middle of the face instead of looking cheerful.
+    const inward = x < 0 ? 1 : -1;
+    line(ctx, [[x - r, y - r - inward * 3], [x + r, y - r + inward * 3]], INK, 4);
   }
   function mouth(ctx, x, y, w, chew, t) {
-    if (chew) {
-      ctx.beginPath();
-      ctx.ellipse(x, y, w, 3 + Math.abs(Math.sin(t * 12)) * 6, 0, 0, TAU);
-      paint(ctx, '#3a0f24', 2.5);
-    } else {
-      ctx.beginPath();
-      ctx.arc(x, y - 3, w, 0.15 * Math.PI, 0.85 * Math.PI);
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = INK;
-      ctx.stroke();
-    }
+    const pulse = Math.abs(Math.sin(t * (chew ? 12 : 8) + x * 0.3));
+    const h = w * (chew ? 0.4 : 0.65) + pulse * w * 0.4;
+    ctx.beginPath();
+    ctx.ellipse(x, y, w, h, -0.08, 0, TAU);
+    paint(ctx, '#3a0f24', 2.5);
+    ctx.save();
+    ctx.clip();
+    // Exposed upper teeth and a tongue make the open mouth read as a yell.
+    ctx.fillStyle = '#fff0d6';
+    ctx.fillRect(x - w, y - h, w * 2, h * 0.5);
+    line(ctx, [[x, y - h], [x, y - h * 0.5]], INK, 1.5);
+    ctx.beginPath();
+    ctx.ellipse(x + w * 0.15, y + h * 0.85, w * 0.65, h * 0.4, 0, 0, TAU);
+    ctx.fillStyle = '#ef6b86';
+    ctx.fill();
+    ctx.restore();
   }
 
   const BLOB_ART = {
@@ -423,8 +431,6 @@
       goo(ctx, 22, 40, t * 2, o.flash ? '#ffffff' : GOO.zipper);
       eye(ctx, -11, 15, 6, -2.5);
       eye(ctx, 3, 14, 6.5, -2.5);
-      line(ctx, [[-18, 7], [-6, 11]], INK, 3);
-      line(ctx, [[10, 6], [-1, 10]], INK, 3);
       mouth(ctx, -4, 28, 6, o.chew, t);
     },
 
