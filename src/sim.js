@@ -27,7 +27,7 @@
   const HALF = 0.3; // half a blob's width
 
   const BOTS = {
-    dynamo: { name: 'Dynamo', cost: 50, hp: 80, recharge: 5, blurb: 'Makes sparks.', gen: 25, genEvery: 9, firstGen: 4 },
+    dynamo: { name: 'Dynamo', cost: 50, hp: 80, recharge: 5, blurb: 'Makes sparks.', gen: 25, genEvery: 11, firstGen: 4 },
     pitcher: { name: 'Pitcher', cost: 100, hp: 100, recharge: 5, blurb: 'Throws bolts down its lane.', dmg: 20, rate: 1.3 },
     bulwark: { name: 'Bulwark', cost: 75, hp: 800, recharge: 16, blurb: 'A tough shield. Blobs must chew through.' },
     coil: { name: 'Arc Coil', cost: 175, hp: 100, recharge: 10, blurb: 'Zaps 3 nearby blobs. Reaches 3 lanes.', dmg: 14, rate: 1.1, range: 2.6, targets: 3 },
