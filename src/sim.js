@@ -13,7 +13,7 @@
   const WAVES = 10;
   const CORE_HP = 5;
 
-  const START_SPARKS = 50;
+  const START_SPARKS = 150;
   const TRICKLE = 10; // free sparks...
   const TRICKLE_EVERY = 4; // ...every this many seconds
   const FIRST_WAVE_DELAY = 14;

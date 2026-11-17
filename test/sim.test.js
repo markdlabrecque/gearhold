@@ -15,8 +15,8 @@ function quietGame() {
   return s;
 }
 
-test('a game starts with 50 sparks', () => {
-  assert.equal(Sim.createGame(1).sparks, 50);
+test('a game starts with 150 sparks', () => {
+  assert.equal(Sim.createGame(1).sparks, 150);
 });
 
 test('building costs sparks, starts the recharge, and needs a free tile', () => {
