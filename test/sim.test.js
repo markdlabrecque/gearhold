@@ -15,8 +15,13 @@ function quietGame() {
   return s;
 }
 
+test('a game starts with 50 sparks', () => {
+  assert.equal(Sim.createGame(1).sparks, 50);
+});
+
 test('building costs sparks, starts the recharge, and needs a free tile', () => {
   const s = quietGame();
+  s.sparks = 150;
   const before = s.sparks;
 
   assert.ok(Sim.place(s, 'pitcher', 2, 3));
@@ -31,6 +36,7 @@ test('building costs sparks, starts the recharge, and needs a free tile', () => 
 
 test('a pitcher only hurts blobs in its own lane', () => {
   const s = quietGame();
+  s.sparks = Sim.BOTS.pitcher.cost;
   Sim.place(s, 'pitcher', 1, 0);
   const same = Sim.spawnBlob(s, 'drip', 1, 8);
   const other = Sim.spawnBlob(s, 'drip', 3, 8);
@@ -57,6 +63,7 @@ test('a springer punts a blob back, then breaks when its charges run out', () =>
 
 test('a bloat splits into two drips when it pops', () => {
   const s = quietGame();
+  s.sparks = Sim.BOTS.pitcher.cost;
   Sim.place(s, 'pitcher', 2, 0);
   const big = Sim.spawnBlob(s, 'bloat', 2, 6);
   big.hp = 1;
